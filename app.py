@@ -12,14 +12,19 @@ st.title("⚡ Simple Cable Sizing Tool")
 # User inputs
 load_current = st.slider("Load Current (A)", min_value=5, max_value=60, value=18, step=1)
 
-installation_factor = st.selectbox(
+installation_options = {
+    "Open Air (1.0)": 1.0,
+    "Conduit (0.8)": 0.8,
+    "Buried (0.7)": 0.7,
+}
+
+installation_choice = st.selectbox(
     "Installation Method (Derating Factor)",
-    options={
-        "Open Air (1.0)": 1.0,
-        "Conduit (0.8)": 0.8,
-        "Buried (0.7)": 0.7,
-    }
+    options=list(installation_options.keys())
 )
+
+installation_factor = installation_options[installation_choice]
+
 
 # Calculation
 required_ampacity = load_current / installation_factor
